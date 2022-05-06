@@ -14,9 +14,14 @@ df_PierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
   dplyr::rename("decimallatitude"="dwc:decimalLatitude") %>% 
   dplyr::rename("decimallongitude"="dwc:decimalLongitude")
 
-df_CleanedData <- read_excel("Cleaned Data LWA .xlsx", sheet = 1)
 
-df <- df_PierisData %>% 
+df_fixed <- df_PierisData %>% 
   dplyr::mutate(country = ifelse(country=="U.S.A.","USA",country)) %>% 
-  dplyr::mutate(country = ifelse(country=="United States","USA",country))
+  dplyr::mutate(country = ifelse(country=="United States","USA",country))  
   
+df_CleanedData <- read_excel("Cleaned Data LWA .xlsx", sheet = 1) %>% 
+  dplyr::rename("coreid"="core ID") %>% 
+  left_join(df_fixed, by = c("coreid")) %>% 
+  dplyr::select("coreid","sex", "LW length", "LW width" , "RW length", "RW width",
+                "year", "continent", "country")
+
