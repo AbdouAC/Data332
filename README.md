@@ -5,4 +5,4 @@
 
 * The average apex reached its peak in 1850
 * Following its peak, the average apex saw its lowest average
-* Something
+* While reading the results based on the graph we found an error in our chart
