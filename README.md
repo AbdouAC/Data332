@@ -21,3 +21,9 @@
 
 * There are more than double Cabbage Butterflies documented in the United States compared to other countries
 * Canada, Republic of Ireland, and United Kingdom all average roughly the same amount of documented butterflies
+
+# Average Apex Area per Sex
+
+<img src="Images/average apex area per sex.png" height = "250" width = "400">
+
+* On average, the male butterfly has a larger apex area than the females
