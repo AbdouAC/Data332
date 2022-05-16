@@ -14,3 +14,10 @@
 * The average apex reached its peak in 2000
 * The average apex was at its lowest in 1880
 * There never seems to be a steady average between the decades
+
+# Number of Butterfly per Country
+
+<img src="Images/butterfly per country.png" height = "250" width = "400">
+
+* There are more than double Cabbage Butterflies documented in the United States compared to other countries
+* Canada, Republic of Ireland, and United Kingdom all average roughly the same amount of documented butterflies
