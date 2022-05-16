@@ -27,3 +27,9 @@
 <img src="Images/average apex area per sex.png" height = "250" width = "400">
 
 * On average, the male butterfly has a larger apex area than the females
+
+# Minimum Wing Length per Sex
+
+<img src="Images/minimum wing length per sex.png" height = "250" width = "400">
+
+* The male butterfly has a longer wing than the female butterfly at minimum
