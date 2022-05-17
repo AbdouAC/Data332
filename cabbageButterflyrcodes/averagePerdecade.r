@@ -15,29 +15,18 @@ df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
   dplyr::rename("decimallatitude"="dwc:decimalLatitude") %>% 
   dplyr::rename("decimallongitude"="dwc:decimalLongitude")
 
-df_fixed <- df_pierisData %>% 
-  dplyr::mutate(country = ifelse(country=="U.S.A.","USA",country)) %>% 
-  dplyr::mutate(country = ifelse(country=="United States","USA",country))
 
-df_CleanedData <- read_excel("Cleaned Data LWA .xlsx", sheet = 1) %>% 
-  dplyr::rename("coreid"="core ID") %>% 
-  left_join(df_fixed, by = c("coreid")) %>% 
-  dplyr::rename("LWlength"="LW length") %>% 
-  dplyr::select("coreid","sex", "LWlength", "LW width" , "RW length", "RW width"
-                ,"LBlackPatchApex", "continent", "country", "year")
-df_CleanedData$LBlackPatchApex <- as.numeric(df_CleanedData$LBlackPatchApex)
-df_CleanedData$year <- as.numeric(df_CleanedData$year )
 
-df_CleanedData$year <- substr(df_CleanedData$year,1,3)
-df_CleanedData$year <- paste0(df_CleanedData$year,"0")
-df_CleanedData$LBlackPatchApex <- as.numeric(df_CleanedData$LBlackPatchApex)
+df_pierisData$year <- substr(df_pierisData$year,1,3)
+df_pierisData$year <- paste0(df_pierisData$year,"0")
+df_pierisData$LBlackPatchApex <- as.numeric(df_pierisData$LBlackPatchApex)
 
-df <- df_CleanedData %>%
+df <- df_pierisData %>%
   dplyr::group_by(year) %>%
   dplyr::summarise(number_please = mean(LBlackPatchApex)) 
 
 
-butter_chart3 <- ggplot(df, aes(y = number_please, x = year, fill = year)) +
+butter_chart3 <- ggplot(df, aes(y = number_please, x = year)) +
   geom_bar(stat = "identity")+
   xlab("Year")+
   ylab("Average Apex Area")+
