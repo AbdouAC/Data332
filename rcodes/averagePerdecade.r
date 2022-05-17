@@ -5,7 +5,7 @@ library(lubridate)
 
 
 rm(list = ls())
-setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design")
+setwd("C:/Users/brantschulze19/Documents/GitHub/Data332/rcodes")
 
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
@@ -26,10 +26,11 @@ df <- df_pierisData %>%
   dplyr::summarise(number_please = mean(LBlackPatchApex)) 
 
 
-butter_chart3 <- ggplot(df, aes(y = number_please, x = year)) +
+butter_chart3 <- ggplot(df, aes(y = number_please, x = year, fill = year)) +
   geom_bar(stat = "identity")+
   xlab("Year")+
   ylab("Average Apex Area")+
   ggtitle("Average Apex Area Per Decade")+
   theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
 plot(butter_chart3)
+
