@@ -34,6 +34,17 @@ df_ladybugdata <- read_excel("Ladybug Data.xlsx", sheet = 1) %>%
   dplyr::mutate(recordedBy = ifelse(recordedBy =="Hughes J.","Jack Hughes",recordedBy)) %>%
   dplyr::mutate(recordedBy = ifelse(recordedBy =="j. hughes","Jack Hughes",recordedBy)) %>%
   dplyr::mutate(recordedBy = ifelse(recordedBy =="J. Hughes","Jack Hughes",recordedBy)) %>%
+  dplyr::mutate(Species = ifelse(Species =="cycloneda munda","Cycloneda munda",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species =="Cycloneda munda","Cycloneda munda",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species =="Cycloneda Munda","Cycloneda munda",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species =="harmonia axyridis","Harmonia axyridis",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species =="Harminia axyridis","Harmonia axyridis",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species =="Propylea quatuordecimpuncata","Propylea quatuordecimpunctata",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species=="coccinella septempunctata","Coccinella septempunctata",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species=="coleomegilla maculata","Coleomegilla maculata",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species=="Hippodamia covergence","Hippodamia convergens",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species=="hippodamia parenthesis","Hippodamia parenthesis",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species=="coccinella septempunctata","Coccinella septempunctata",Species)) %>%
   dplyr::select("Species", "date", "basisOfRecord", "year","country","stateProvince",
                 "recordedBy")
 
@@ -45,7 +56,7 @@ df_ladybugdata$date <- format(df_ladybugdata$date, format = '%Y')
 ### group data by state, species and who recorded the data 
 ### filter out the null values 
 
-ladybug_species <- df_ladybugdata %>%
+ladybug_group <- df_ladybugdata %>%
   dplyr::group_by(stateProvince, Species, recordedBy) %>%
   filter(!is.na(stateProvince)) %>% 
   filter(!is.na(recordedBy)) %>% 
@@ -53,7 +64,7 @@ ladybug_species <- df_ladybugdata %>%
 
 ### Number of Ladybug Per species
 
-species_chart <- ggplot(ladybug_species, aes(y = number, x = Species, fill = Species)) +
+species_chart <- ggplot(ladybug_group, aes(y = number, x = Species, fill = Species)) +
   geom_bar(stat = "identity")+
   xlab("species")+
   ylab("Number of ladybug")+
@@ -63,7 +74,7 @@ plot(species_chart)
 
 ### Number of Ladybug Per Sate
 
-state_chart <- ggplot(ladybug_species, aes(y = number, x = stateProvince, fill = stateProvince)) +
+state_chart <- ggplot(ladybug_group, aes(y = number, x = stateProvince, fill = stateProvince)) +
   geom_bar(stat = "identity")+
   xlab("state")+
   ylab("Number of ladybug")+
@@ -73,11 +84,24 @@ plot(state_chart)
 
 ### Number of Ladybug Recorded Per Person
 
-record_chart <- ggplot(ladybug_species, aes(y = number, x = recordedBy, fill = recordedBy)) +
+record_chart <- ggplot(ladybug_group, aes(y = number, x = recordedBy, fill = recordedBy)) +
   geom_bar(stat = "identity")+
   xlab("Recorded by")+
   ylab("Number of ladybug")+
   ggtitle("Number of Ladybug Recorded Per Person")+
   theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
 plot(record_chart)
- 
+
+
+ladybug_species <- df_ladybugdata %>%
+  dplyr::group_by(Species, recordedBy) %>%
+  filter(!is.na(stateProvince)) %>% 
+  filter(!is.na(recordedBy)) %>% 
+  dplyr::summarise(number = n())
+
+Jack <- ladybug_species %>% 
+  dplyr::filter(recordedBy == "Jack Hughes")
+
+
+#number = count(df_ladybugdata, vars = df_ladybugdata$recordedBy)
+
