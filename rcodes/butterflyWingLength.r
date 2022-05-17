@@ -52,10 +52,11 @@ df_female <- data.frame(butterfly_sex,wing_avg, wing_max, wing_min)
 
 total <- rbind(df_male, df_female)
 
-butter_chart <- ggplot(total, aes(y = wing_min, x = butterfly_sex)) +
+butter_chart <- ggplot(total, aes(y = wing_min, x = butterfly_sex, fill = butterfly_sex)) +
   geom_bar(stat = "identity")+
   xlab("sex")+
   ylab("Minimum Wing Length")+
   ggtitle("Minimum Wing Length Per Sex")+
   theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
 plot(butter_chart)
+
