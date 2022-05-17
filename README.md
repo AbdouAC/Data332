@@ -1,7 +1,7 @@
 
 # Average Apex Area per Decade
 
-<img src="butterflyImages/decadeChart.png" height = "250" width = "400">
+<img src="butterflyImages/decadeChart.png" height = "250" width = "500">
 
 * The average apex reached its peak in 1850
 * Following its peak, the average apex saw its lowest average
