@@ -5,7 +5,7 @@ library(lubridate)
 
 
 rm(list = ls())
-setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332")
+setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
@@ -34,6 +34,7 @@ df_CleanedData$LBlackPatchApex <- as.numeric(df_CleanedData$LBlackPatchApex)
 
 df <- df_CleanedData %>%
   dplyr::group_by(year) %>%
+  filter(!is.na(year)) %>%
   dplyr::summarise(number_please = mean(LBlackPatchApex)) 
 
 

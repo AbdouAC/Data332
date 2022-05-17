@@ -4,7 +4,7 @@ library(readxl)
 library(lubridate)
 
 rm(list = ls())
-setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design")
+setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
@@ -52,7 +52,7 @@ df_female <- data.frame(butterfly_sex,wing_avg, wing_max, wing_min)
 
 total <- rbind(df_male, df_female)
 
-butter_chart <- ggplot(total, aes(y = wing_min, x = butterfly_sex)) +
+butter_chart <- ggplot(total, aes(y = wing_min, x = butterfly_sex, fill = butterfly_sex)) +
   geom_bar(stat = "identity")+
   xlab("sex")+
   ylab("Minimum Wing Length")+

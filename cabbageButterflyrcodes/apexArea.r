@@ -4,7 +4,7 @@ library(readxl)
 library(lubridate)
 
 rm(list = ls())
-setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design")
+setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
@@ -51,10 +51,11 @@ df_female2 <- data.frame(butterfly_sex,apex_avg,apex_max, apex_min)
 
 total2 <- rbind(df_male2, df_female2)
 
-butter_chart2 <- ggplot(total2, aes(y = apex_avg, x = butterfly_sex)) +
+butter_chart2 <- ggplot(total2, aes(y = apex_avg, x = butterfly_sex, fill = butterfly_sex)) +
   geom_bar(stat = "identity")+
   xlab("sex")+
   ylab("Average Apex Area")+
   ggtitle("Average Apex Area Per Sex")+
   theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
 plot(butter_chart2)
+

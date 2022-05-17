@@ -4,7 +4,7 @@ library(readxl)
 library(lubridate)
 
 rm(list = ls())
-setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design")
+setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
@@ -32,14 +32,16 @@ df_CleanedData$year <- as.numeric(df_CleanedData$year )
 
 butterfly_country <- df_CleanedData %>%
   dplyr::group_by(country) %>%
+  filter(!is.na(country)) %>%
   dplyr::summarise(number = n())
 
 ### hist(butterfly_country$number)
 
-butterfly_chart <- ggplot(butterfly_country, aes(y = number, x = country)) +
+butterfly_chart <- ggplot(butterfly_country, aes(y = number, x = country, fill = country)) +
   geom_bar(stat = "identity")+
   xlab("country")+
   ylab("Number of butterfly Per Country")+
   ggtitle("Number of Butterfly Per Country")+
   theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
 plot(butterfly_chart)
+
