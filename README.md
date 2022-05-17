@@ -35,6 +35,6 @@
 * The male butterfly has a longer wing than the female butterfly at minimum.
 
 # Insect Carnivore Data
-# 
+# Lady Bug per Species
 
-<img src=">
+<img src="ladybugImages/ladybug per species.png" height = "400" width = "520">
