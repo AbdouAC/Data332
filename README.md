@@ -32,4 +32,4 @@
 
 <img src="Images/minimum wing length per sex.png" height = "250" width = "400">
 
-* The male butterfly has a longer wing than the female butterfly at minimum
+* The male butterfly has a longer wing than the female butterfly at minimum.
