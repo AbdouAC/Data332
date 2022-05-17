@@ -59,3 +59,4 @@ butter_chart <- ggplot(total, aes(y = wing_min, x = butterfly_sex, fill = butter
   ggtitle("Minimum Wing Length Per Sex")+
   theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
 plot(butter_chart)
+
