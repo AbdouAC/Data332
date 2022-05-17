@@ -53,3 +53,8 @@ df_female <- data.frame(butterfly_sex,wing_avg, wing_max, wing_min)
 total <- rbind(df_male, df_female)
 
 t.test(total$wing_avg,mu = 30)
+
+### After doing the t-test, we notice that the p-value < 0.05 so we can reject 
+### the null hypothesis and there is a 95% chance that the true mean is between'
+### 21.68 and 25.30
+

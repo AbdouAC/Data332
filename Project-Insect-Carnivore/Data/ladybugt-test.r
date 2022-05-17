@@ -10,7 +10,7 @@ setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/Projec
 ### read the excel and csv file 
 
 df_scandata <- read_csv("Scan Ladybug Data.csv")
-  
+
 ### dplyr mutate is used to make sure naming is consistent throughout the data
 
 df_ladybugdata <- read_excel("Ladybug Data.xlsx", sheet = 1) %>% 
@@ -61,43 +61,33 @@ df_ladybugdata <- read_excel("Ladybug Data.xlsx", sheet = 1) %>%
 df_ladybugdata$date <- ymd(df_ladybugdata$date)
 df_ladybugdata$date <- format(df_ladybugdata$date, format = '%Y')
 
-### group data by state, species and who recorded the data 
-### filter out the null values 
 
-ladybug_group <- df_ladybugdata %>%
-  dplyr::group_by(stateProvince, Species, recordedBy) %>%
+ladybug_species <- df_ladybugdata %>%
+  dplyr::group_by(Species, recordedBy) %>%
   filter(!is.na(stateProvince)) %>% 
   filter(!is.na(recordedBy)) %>% 
   dplyr::summarise(number = n())
 
-### Number of Ladybug Per species
+Jack <- ladybug_species %>% 
+  dplyr::filter(recordedBy == "Jack Hughes")
 
-species_chart <- ggplot(ladybug_group, aes(y = number, x = Species, fill = Species)) +
-  geom_bar(stat = "identity")+
-  xlab("species")+
-  ylab("Number of ladybug")+
-  ggtitle("Number of Ladybug Per species")+
-  theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
-plot(species_chart)
+recordby <- paste("Jack Hughes")
+average = sum(Jack$number)/11
+df_jack <- data.frame(recordby,average)
 
-### Number of Ladybug Per Sate
+olivia <- ladybug_species %>% 
+  dplyr::filter(recordedBy == "Olivia Ruffatto")
 
-state_chart <- ggplot(ladybug_group, aes(y = number, x = stateProvince, fill = stateProvince)) +
-  geom_bar(stat = "identity")+
-  xlab("state")+
-  ylab("Number of ladybug")+
-  ggtitle("Number of Ladybug Per State")+
-  theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
-plot(state_chart)
+recordby <- paste("Olivia Ruffatto")
+average = sum(olivia$number)/13
+df_olivia <- data.frame(recordby,average)
 
-### Number of Ladybug Recorded Per Person
+### merge data into one data frame
 
-record_chart <- ggplot(ladybug_group, aes(y = number, x = recordedBy, fill = recordedBy)) +
-  geom_bar(stat = "identity")+
-  xlab("Recorded by")+
-  ylab("Number of ladybug")+
-  ggtitle("Number of Ladybug Recorded Per Person")+
-  theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
-plot(record_chart)
+total <- rbind(df_jack, df_olivia)
 
+t.test(total$average,mu = 15)
 
+### After doing the t-test, we notice that the p-value < 0.05 so we can reject 
+### the null hypothesis and there is a 95% chance that the true mean is between'
+### -4.06 and 26.85
