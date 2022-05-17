@@ -5,7 +5,7 @@ library(lubridate)
 
 
 rm(list = ls())
-setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
+setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332")
 
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
