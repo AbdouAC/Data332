@@ -42,9 +42,12 @@ df_ladybugdata <- read_excel("Ladybug Data.xlsx", sheet = 1) %>%
   dplyr::mutate(Species = ifelse(Species =="Propylea quatuordecimpuncata","Propylea quatuordecimpunctata",Species)) %>%
   dplyr::mutate(Species = ifelse(Species=="coccinella septempunctata","Coccinella septempunctata",Species)) %>%
   dplyr::mutate(Species = ifelse(Species=="coleomegilla maculata","Coleomegilla maculata",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species=="colemegilla maculata","Coleomegilla maculata",Species)) %>%
   dplyr::mutate(Species = ifelse(Species=="Hippodamia covergence","Hippodamia convergens",Species)) %>%
   dplyr::mutate(Species = ifelse(Species=="hippodamia parenthesis","Hippodamia parenthesis",Species)) %>%
   dplyr::mutate(Species = ifelse(Species=="coccinella septempunctata","Coccinella septempunctata",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species=="Coccinella Septempunctata","Coccinella septempunctata",Species)) %>%
+  dplyr::mutate(Species = ifelse(Species=="Coccinella semtempuncata","Coccinella septempunctata",Species)) %>%
   dplyr::select("Species", "date", "basisOfRecord", "year","country","stateProvince",
                 "recordedBy")
 
