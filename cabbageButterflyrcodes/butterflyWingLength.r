@@ -6,15 +6,13 @@ library(lubridate)
 rm(list = ls())
 setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
-
+### read files and clean data 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
   dplyr::rename("country"="dwc:country") %>% 
   dplyr::rename("year"="dwc:year") %>% 
   dplyr::rename("continent"="dwc:continent") %>% 
   dplyr::rename("decimallatitude"="dwc:decimalLatitude") %>% 
   dplyr::rename("decimallongitude"="dwc:decimalLongitude")
-
-
 
 df_fixed <- df_pierisData %>% 
   dplyr::mutate(country = ifelse(country=="U.S.A.","USA",country)) %>% 
@@ -29,10 +27,10 @@ df_CleanedData <- read_excel("Cleaned Data LWA .xlsx", sheet = 1) %>%
 df_CleanedData$LBlackPatchApex <- as.numeric(df_CleanedData$LBlackPatchApex)
 df_CleanedData$year <- as.numeric(df_CleanedData$year )
 
+### find min, max, and average for left wing of both males and females
 
 malebutterfly_sex <- df_CleanedData %>% 
   dplyr::filter(sex == "male")
-
 
 femalebutterfly_sex <- df_CleanedData %>%
   dplyr::filter(sex == "female") 
@@ -50,7 +48,11 @@ wing_avg <- mean(femalebutterfly_sex$LWlength)
 butterfly_sex <- paste("Female")
 df_female <- data.frame(butterfly_sex,wing_avg, wing_max, wing_min)
 
+### merge data into one data frame
+
 total <- rbind(df_male, df_female)
+
+### make bar chart
 
 butter_chart <- ggplot(total, aes(y = wing_min, x = butterfly_sex, fill = butterfly_sex)) +
   geom_bar(stat = "identity")+
