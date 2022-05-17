@@ -51,13 +51,14 @@ df_female2 <- data.frame(butterfly_sex,apex_avg,apex_max, apex_min)
 
 total2 <- rbind(df_male2, df_female2)
 
-butter_chart2 <- ggplot(total2, aes(y = apex_avg, x = butterfly_sex)) +
+butter_chart2 <- ggplot(total2, aes(y = apex_avg, x = butterfly_sex, fill = butterfly_sex)) +
   geom_bar(stat = "identity")+
   xlab("sex")+
   ylab("Average Apex Area")+
   ggtitle("Average Apex Area Per Sex")+
   theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
 plot(butter_chart2)
+
 
 
 
