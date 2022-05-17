@@ -5,7 +5,7 @@ library(lubridate)
 
 
 rm(list = ls())
-setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design")
+setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
@@ -44,3 +44,4 @@ butter_chart3 <- ggplot(df, aes(y = number_please, x = year, fill = year)) +
   ggtitle("Average Apex Area Per Decade")+
   theme(axis.text = element_text(angle = 45, vjust = 1, hjust = 1))
 plot(butter_chart3)
+
