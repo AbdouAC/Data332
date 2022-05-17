@@ -7,6 +7,7 @@ library(lubridate)
 rm(list = ls())
 setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
+### read files, clean data and merge table
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
   dplyr::rename("country"="dwc:country") %>% 
@@ -23,20 +24,24 @@ df_CleanedData <- read_excel("Cleaned Data LWA .xlsx", sheet = 1) %>%
   dplyr::rename("coreid"="core ID") %>% 
   left_join(df_fixed, by = c("coreid")) %>% 
   dplyr::rename("LWlength"="LW length") %>% 
+  filter(!is.na(year)) %>%
   dplyr::select("coreid","sex", "LWlength", "LW width" , "RW length", "RW width"
                 ,"LBlackPatchApex", "continent", "country", "year")
 df_CleanedData$LBlackPatchApex <- as.numeric(df_CleanedData$LBlackPatchApex)
 df_CleanedData$year <- as.numeric(df_CleanedData$year )
 
+### format the data to get year only and find only decades
+
 df_CleanedData$year <- substr(df_CleanedData$year,1,3)
 df_CleanedData$year <- paste0(df_CleanedData$year,"0")
 df_CleanedData$LBlackPatchApex <- as.numeric(df_CleanedData$LBlackPatchApex)
 
+### group by year and find the mean per year
 df <- df_CleanedData %>%
   dplyr::group_by(year) %>%
-  filter(!is.na(year)) %>%
   dplyr::summarise(number_please = mean(LBlackPatchApex)) 
 
+### make bar chart
 
 butter_chart3 <- ggplot(df, aes(y = number_please, x = year, fill = year)) +
   geom_bar(stat = "identity")+

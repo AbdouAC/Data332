@@ -6,6 +6,7 @@ library(lubridate)
 rm(list = ls())
 setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
+### Read excel files and clean the data a bit
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
   dplyr::rename("country"="dwc:country") %>% 
@@ -13,8 +14,6 @@ df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
   dplyr::rename("continent"="dwc:continent") %>% 
   dplyr::rename("decimallatitude"="dwc:decimalLatitude") %>% 
   dplyr::rename("decimallongitude"="dwc:decimalLongitude")
-
-
 
 df_fixed <- df_pierisData %>% 
   dplyr::mutate(country = ifelse(country=="U.S.A.","USA",country)) %>% 
@@ -29,13 +28,15 @@ df_CleanedData <- read_excel("Cleaned Data LWA .xlsx", sheet = 1) %>%
 df_CleanedData$LBlackPatchApex <- as.numeric(df_CleanedData$LBlackPatchApex)
 df_CleanedData$year <- as.numeric(df_CleanedData$year )
 
+### filter the data by sex
 
 malebutterfly_sex <- df_CleanedData %>% 
   dplyr::filter(sex == "male")
 
-
 femalebutterfly_sex <- df_CleanedData %>%
   dplyr::filter(sex == "female") 
+
+### find min, max, and average for apex area of both males and females
 
 apex_min <- min(malebutterfly_sex$LBlackPatchApex)
 apex_max <- max(malebutterfly_sex$LBlackPatchApex)
@@ -49,7 +50,11 @@ apex_avg <- mean(femalebutterfly_sex$LBlackPatchApex)
 butterfly_sex <- paste("Female")
 df_female2 <- data.frame(butterfly_sex,apex_avg,apex_max, apex_min)
 
+### merge data into one data frame 
+
 total2 <- rbind(df_male2, df_female2)
+
+### make bar chart
 
 butter_chart2 <- ggplot(total2, aes(y = apex_avg, x = butterfly_sex, fill = butterfly_sex)) +
   geom_bar(stat = "identity")+

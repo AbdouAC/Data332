@@ -6,6 +6,7 @@ library(lubridate)
 rm(list = ls())
 setwd("C:/Users/husky/OneDrive/Desktop/System Analysis and design/Data332/cabbageButterflyrcodes")
 
+### read files and clean data
 
 df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
   dplyr::rename("country"="dwc:country") %>% 
@@ -13,8 +14,6 @@ df_pierisData <- read_excel("CompletePierisData_2022-03-09.xlsx", sheet = 1) %>%
   dplyr::rename("continent"="dwc:continent") %>% 
   dplyr::rename("decimallatitude"="dwc:decimalLatitude") %>% 
   dplyr::rename("decimallongitude"="dwc:decimalLongitude")
-
-
 
 df_fixed <- df_pierisData %>% 
   dplyr::mutate(country = ifelse(country=="U.S.A.","USA",country)) %>% 
@@ -28,14 +27,15 @@ df_CleanedData <- read_excel("Cleaned Data LWA .xlsx", sheet = 1) %>%
                 ,"LBlackPatchApex", "continent", "country", "year")
 df_CleanedData$LBlackPatchApex <- as.numeric(df_CleanedData$LBlackPatchApex)
 df_CleanedData$year <- as.numeric(df_CleanedData$year )
-#### Visualization
+
+#### group by country, filter out the null values and count per country
 
 butterfly_country <- df_CleanedData %>%
   dplyr::group_by(country) %>%
   filter(!is.na(country)) %>%
   dplyr::summarise(number = n())
 
-### hist(butterfly_country$number)
+### make bar chart 
 
 butterfly_chart <- ggplot(butterfly_country, aes(y = number, x = country, fill = country)) +
   geom_bar(stat = "identity")+
